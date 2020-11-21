@@ -1,0 +1,43 @@
+package com.amgdeveloper.cookingapp.view
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.amgdeveloper.cookingapp.databinding.RecipeListItemBinding
+import com.amgdeveloper.cookingapp.model.Recipe
+import com.bumptech.glide.Glide
+
+/**
+ * Created by amgdeveloper on 19/11/2020
+ */
+class RecipeListAdapter(var recipes: List<Recipe>) :
+    RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder>() {
+
+
+    class RecipeViewHolder(val binding: RecipeListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(recipe: Recipe) {
+            binding.recipeListItemTitleTv.text = recipe.title
+            Glide.with(binding.root.context)
+                .load(recipe.image)
+                .into(binding.recipeListItemIv)
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+        val binding = RecipeListItemBinding.inflate(
+            LayoutInflater
+                .from(parent.context), parent, false
+        )
+        return RecipeViewHolder(binding)
+    }
+
+    override fun getItemCount(): Int {
+        return recipes.size
+    }
+
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+        holder.bind(recipes.get(position))
+    }
+}
