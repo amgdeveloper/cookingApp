@@ -57,4 +57,11 @@ dependencies {
 
     //HTTP login interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+
+    //Coroutines
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.coroutines"   //allows context in Coroutines
+
+    //Glide (Image loading)
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide"
 }

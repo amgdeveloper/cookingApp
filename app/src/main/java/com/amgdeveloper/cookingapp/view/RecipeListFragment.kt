@@ -5,25 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
 import com.amgdeveloper.cookingapp.network.RecipeClient
-import kotlin.concurrent.thread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Created by amgdeveloper on 18/11/2020
  */
 class RecipeListFragment : Fragment() {
 
+    private val adapter = RecipeListAdapter(emptyList())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        thread{
-            val map = mutableMapOf<String,String>()
+        lifecycleScope.launch {
+            val map = mutableMapOf<String, String>()
             map["apiKey"] = BuildConfig.API_KEY
             map["cuisine"] = "italian"    //search italian recipes by default
-            val call = RecipeClient.service.getRandomRecipes(map)
-            val body = call.execute().body()
+            withContext(Dispatchers.IO) {
+                val call = RecipeClient.service.getRandomRecipes(map)
+                val body = call.execute().body()
+                if (body != null) {
+                    withContext(Dispatchers.Main) {
+                        adapter.recipes = body.results
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
         }
     }
 
@@ -33,11 +46,9 @@ class RecipeListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val binding = FragmentRecipeListBinding.inflate(layoutInflater,container,false)
-        val rootView = binding.root
-
-        return rootView
+        val binding = FragmentRecipeListBinding.inflate(layoutInflater, container, false)
+        val recyclerView = binding.recipeListFragmentRv
+        recyclerView.adapter = adapter
+        return binding.root
     }
-
 }
