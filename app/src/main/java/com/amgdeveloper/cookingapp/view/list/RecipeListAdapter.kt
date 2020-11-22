@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.view
+package com.amgdeveloper.cookingapp.view.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

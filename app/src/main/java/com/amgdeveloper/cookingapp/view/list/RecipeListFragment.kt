@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.view
+package com.amgdeveloper.cookingapp.view.list
 
 import android.content.Intent
 import android.os.Bundle

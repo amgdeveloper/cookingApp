@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.databinding.ActivityMainBinding
+import com.amgdeveloper.cookingapp.view.list.RecipeListFragment
 
 class MainActivity : AppCompatActivity() {
 
