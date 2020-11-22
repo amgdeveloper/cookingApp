@@ -11,5 +11,5 @@ import retrofit2.http.QueryMap
 
 interface RecipeService {
     @GET("recipes/complexSearch")
-    fun getRandomRecipes(@QueryMap options  :Map <String, String>): Call<RecipeResult>
+    suspend fun getRandomRecipes(@QueryMap options  :Map <String, String>): RecipeResult
 }

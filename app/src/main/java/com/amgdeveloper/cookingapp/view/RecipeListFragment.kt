@@ -37,13 +37,10 @@ class RecipeListFragment : Fragment() {
             map["apiKey"] = BuildConfig.API_KEY
             map["cuisine"] = "italian"    //search italian recipes by default
             withContext(Dispatchers.IO) {
-                val call = RecipeClient.service.getRandomRecipes(map)
-                val body = call.execute().body()
-                if (body != null) {
-                    withContext(Dispatchers.Main) {
-                        adapter.recipes = body.results
-                        adapter.notifyDataSetChanged()
-                    }
+                val recipeResult = RecipeClient.service.getRandomRecipes(map)
+                withContext(Dispatchers.Main) {
+                    adapter.recipes = recipeResult.results
+                    adapter.notifyDataSetChanged()
                 }
             }
         }
