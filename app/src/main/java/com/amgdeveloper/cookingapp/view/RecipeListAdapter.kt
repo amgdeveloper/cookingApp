@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 /**
  * Created by amgdeveloper on 19/11/2020
  */
-class RecipeListAdapter(var recipes: List<Recipe>) :
+class RecipeListAdapter(var recipes: List<Recipe>,
+                        private val recipeListener: (Recipe) -> Unit) :
     RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder>() {
-
 
     class RecipeViewHolder(val binding: RecipeListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,5 +39,6 @@ class RecipeListAdapter(var recipes: List<Recipe>) :
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.bind(recipes.get(position))
+        holder.itemView.setOnClickListener { recipeListener(recipes[position]) }
     }
 }

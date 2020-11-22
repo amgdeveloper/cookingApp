@@ -1,5 +1,6 @@
 package com.amgdeveloper.cookingapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
+import com.amgdeveloper.cookingapp.model.Recipe
 import com.amgdeveloper.cookingapp.network.RecipeClient
+import com.amgdeveloper.cookingapp.view.details.RecipeDetailsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +21,13 @@ import kotlinx.coroutines.withContext
  */
 class RecipeListFragment : Fragment() {
 
-    private val adapter = RecipeListAdapter(emptyList())
+    private val adapter = RecipeListAdapter(emptyList()) { showRecipeDetails(it) }
+
+    private fun showRecipeDetails(recipe: Recipe) {
+        val intent = Intent(context, RecipeDetailsActivity::class.java)
+        intent.putExtra(RecipeDetailsActivity.EXTRA_RECIPE, recipe)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +48,6 @@ class RecipeListFragment : Fragment() {
             }
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
