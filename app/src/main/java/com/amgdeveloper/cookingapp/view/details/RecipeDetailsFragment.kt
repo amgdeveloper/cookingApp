@@ -52,9 +52,11 @@ class RecipeDetailsFragment : Fragment() {
 
     private fun getSummary(id: Int) {
         lifecycleScope.launch {
-            val summary = RecipeClient.service.getRecipeSummary(id, BuildConfig.API_KEY)
-            withContext(Dispatchers.Main) {
-                binding.fragmentRecipeDetailsSummaryTv.text = summary.summary
+            withContext(Dispatchers.IO) {
+                val summary = RecipeClient.service.getRecipeSummary(id, BuildConfig.API_KEY)
+                withContext(Dispatchers.Main) {
+                    binding.fragmentRecipeDetailsSummaryTv.text = summary.summary
+                }
             }
         }
     }
