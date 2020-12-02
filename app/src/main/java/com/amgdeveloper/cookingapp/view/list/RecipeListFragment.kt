@@ -20,7 +20,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
 
 /**
  * Created by amgdeveloper on 18/11/2020
@@ -36,7 +38,7 @@ class RecipeListFragment : Fragment() {
     private val adapter = RecipeListAdapter(emptyList()) { showRecipeDetails(it) }
     private val requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-                requestRandomRecipes(isGranted)
+                doRequestRandomRecipes(isGranted)
             }
 
     private lateinit var fusedLocationClient : FusedLocationProviderClient
@@ -66,26 +68,12 @@ class RecipeListFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("MissingPermission")
-    private fun requestRandomRecipes(isLocationGranted: Boolean) {
-        var cuisine = DEFAULT_CUISINE
-        if (isLocationGranted) {
-            fusedLocationClient.lastLocation.addOnCompleteListener() { location ->
-                location.result?.let {
-                    cuisine = getCuisineTypeFromRegion(getRegionFromLocation(it))
-                }
-                doRequestRandomRecipes(cuisine)
-            }
-        } else {
-            doRequestRandomRecipes(cuisine)
-        }
-    }
 
-    private fun doRequestRandomRecipes(region: String) {
+    private fun doRequestRandomRecipes(isLocationGranted: Boolean) {
         lifecycleScope.launch {
             val map = mutableMapOf<String, String>()
             map["apiKey"] = BuildConfig.API_KEY
-            map["cuisine"] = region    //search italian recipes by default
+            map["cuisine"] = getCuisine(isLocationGranted)
             withContext(Dispatchers.IO) {
                 val recipeResult = RecipeClient.service.getRandomRecipes(map)
                 withContext(Dispatchers.Main) {
@@ -95,6 +83,22 @@ class RecipeListFragment : Fragment() {
             }
         }
     }
+
+    @SuppressLint("MissingPermission")
+    private suspend fun getCuisine(isLocationGranted: Boolean): String = suspendCancellableCoroutine { continuation ->
+        var cuisine = DEFAULT_CUISINE
+        if (isLocationGranted) {
+            fusedLocationClient.lastLocation.addOnCompleteListener() { location ->
+                location.result?.let {
+                    cuisine = getCuisineTypeFromRegion(getRegionFromLocation(it))
+                }
+                continuation.resume(cuisine)
+            }
+        } else {
+            continuation.resume(cuisine)
+        }
+    }
+
 
     private fun getRegionFromLocation(location: Location): String {
         val geocoder = Geocoder(context)
