@@ -1,15 +1,16 @@
 package com.amgdeveloper.cookingapp.model
 
+import android.Manifest
+import android.app.Activity
 import android.location.Geocoder
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Created by amgdeveloper on 05/12/2020
  */
-class CuisineRepository(activity: AppCompatActivity) {
+class CuisineRepository(activity: Activity) {
 
-    private var permissionChecker = PermissionChecker(activity)
+    private var permissionChecker = PermissionChecker(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
     private var locationDataSource: PlayServicesLocationDataSource = PlayServicesLocationDataSource(activity)
     private var geocoder: Geocoder = Geocoder(activity)
 
