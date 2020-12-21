@@ -1,6 +1,5 @@
 package com.amgdeveloper.cookingapp.view.list
 
-import android.util.Log
 import com.amgdeveloper.cookingapp.common.Scope
 import com.amgdeveloper.cookingapp.model.Recipe
 import com.amgdeveloper.cookingapp.network.RecipeRepository
@@ -23,7 +22,6 @@ class ListPresenter(val recipeRepository: RecipeRepository )  : Scope by Scope.I
         initScope()
         launch {
             view.showProgress()
-            Log.e("TAG","PROBLEM HERE")
             view.updateData(recipeRepository.getRecipesByRegion())
             view.hideProgress()
         }

@@ -3,6 +3,7 @@ package com.amgdeveloper.cookingapp.view.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.RecipeListItemBinding
 import com.amgdeveloper.cookingapp.model.Recipe
 import com.bumptech.glide.Glide
@@ -19,9 +20,7 @@ class RecipeListAdapter(var recipes: List<Recipe>,
 
         fun bind(recipe: Recipe) {
             binding.recipeListItemTitleTv.text = recipe.title
-            Glide.with(binding.root.context)
-                .load(recipe.image)
-                .into(binding.recipeListItemIv)
+            binding.recipeListItemIv.loadImage(recipe.image)
         }
     }
 
