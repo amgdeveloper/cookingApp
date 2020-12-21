@@ -14,11 +14,13 @@ class ListPresenter(val recipeRepository: RecipeRepository )  : Scope by Scope.I
         fun showProgress()
         fun hideProgress()
         fun updateData(list: List<Recipe>)
+        fun navigateTo(recipe : Recipe)
     }
 
     private  var view : View? = null
 
     fun onCreate(view :View){
+        this.view = view
         initScope()
         launch {
             view.showProgress()
@@ -32,4 +34,9 @@ class ListPresenter(val recipeRepository: RecipeRepository )  : Scope by Scope.I
         view = null
         destroyScope()
     }
+
+    fun onRecipeClicked(recipe : Recipe){
+        view?.navigateTo(recipe)
+    }
+
 }

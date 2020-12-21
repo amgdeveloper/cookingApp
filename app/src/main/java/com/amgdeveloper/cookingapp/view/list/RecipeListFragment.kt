@@ -20,17 +20,10 @@ import com.amgdeveloper.cookingapp.view.details.RecipeDetailsActivity
 class RecipeListFragment : Fragment(), ListPresenter.View {
 
 
-    private val adapter = RecipeListAdapter(emptyList()) { showRecipeDetails(it) }
+    private val adapter = RecipeListAdapter(emptyList()) { presenter.onRecipeClicked(it) }
     private val recipeRepository: RecipeRepository by lazy { RecipeRepository(activity as AppCompatActivity) }
     private val presenter : ListPresenter by lazy {ListPresenter(recipeRepository)}
     private lateinit var progressDialog : ProgressBar
-
-
-    private fun showRecipeDetails(recipe: Recipe) {
-        val intent = Intent(context, RecipeDetailsActivity::class.java)
-        intent.putExtra(RecipeDetailsActivity.EXTRA_RECIPE, recipe)
-        startActivity(intent)
-    }
 
 
     override fun onAttach(context: Context) {
@@ -67,5 +60,11 @@ class RecipeListFragment : Fragment(), ListPresenter.View {
     override fun updateData(list: List<Recipe>) {
         adapter.recipes = list
         adapter.notifyDataSetChanged()
+    }
+
+    override fun navigateTo(recipe: Recipe) {
+        val intent = Intent(context, RecipeDetailsActivity::class.java)
+        intent.putExtra(RecipeDetailsActivity.EXTRA_RECIPE, recipe)
+        startActivity(intent)
     }
 }
