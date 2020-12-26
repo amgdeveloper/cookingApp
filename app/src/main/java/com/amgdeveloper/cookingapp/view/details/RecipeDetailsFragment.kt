@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
 import com.amgdeveloper.cookingapp.model.Recipe
@@ -31,7 +30,7 @@ class RecipeDetailsFragment : Fragment() {
         arguments?.let {
             recipe = it.getParcelable(RecipeDetailsActivity.EXTRA_RECIPE)!!
             recipe.let {
-                viewModel = ViewModelProvider(this,DetailViewModel.DetailViewModelFactory(recipe.id)).get()
+                viewModel = getViewModel { DetailViewModel(recipe.id) }
             }
         }
     }

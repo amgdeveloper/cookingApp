@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.RecipeListItemBinding
 import com.amgdeveloper.cookingapp.model.Recipe
-import com.bumptech.glide.Glide
 
 /**
  * Created by amgdeveloper on 19/11/2020

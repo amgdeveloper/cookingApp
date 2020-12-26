@@ -3,7 +3,6 @@ package com.amgdeveloper.cookingapp.view.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.amgdeveloper.cookingapp.common.Scope
 import com.amgdeveloper.cookingapp.model.Recipe
 import com.amgdeveloper.cookingapp.network.RecipeRepository
@@ -47,11 +46,4 @@ class ListViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
     fun onRecipeClicked(recipe: Recipe) {
         _model.value = UiModel.Navigation(recipe)
     }
-
-    @Suppress("UNCHECKED_CAST")
-    class ListViewModelFactory(private val repository: RecipeRepository) : ViewModelProvider.Factory{
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-            ListViewModel(repository) as T
-    }
-
 }

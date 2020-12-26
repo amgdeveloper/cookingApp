@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.startActivity
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
 import com.amgdeveloper.cookingapp.network.RecipeRepository
@@ -38,7 +38,7 @@ class RecipeListFragment : Fragment() {
         val binding = FragmentRecipeListBinding.inflate(layoutInflater, container, false)
         val recyclerView = binding.recipeListFragmentRv
         progressDialog = binding.recipeListFragmentPb
-        viewModel = ViewModelProvider(this,ListViewModel.ListViewModelFactory(recipeRepository))[ListViewModel::class.java]
+        viewModel = getViewModel { ListViewModel(recipeRepository) }
         adapter = RecipeListAdapter(emptyList(), viewModel::onRecipeClicked)
         recyclerView.adapter = adapter
         viewModel.model.observe(viewLifecycleOwner, Observer(this::updateUi))
