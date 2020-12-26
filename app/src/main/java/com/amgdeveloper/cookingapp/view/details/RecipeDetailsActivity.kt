@@ -19,7 +19,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recipe_details)
 
         val recipe = intent.getParcelableExtra<Recipe>(EXTRA_RECIPE)
-        if (recipe != null){
+         if (recipe != null){
             displayRecipeDetails(recipe)
         }
     }

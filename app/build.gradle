@@ -77,4 +77,6 @@ dependencies {
     //Permission request (Dexter)
     implementation 'com.karumi:dexter:6.0.2'
 
+    //Architecture components
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 }
