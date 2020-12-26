@@ -26,6 +26,10 @@ class RecipeDetailsFragment : Fragment() {
         val TAG: String = RecipeDetailsFragment::class.java.simpleName
     }
 
+    companion object {
+        val TAG: String = RecipeDetailsFragment::class.java.simpleName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

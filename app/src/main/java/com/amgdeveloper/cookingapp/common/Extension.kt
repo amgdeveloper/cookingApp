@@ -17,7 +17,6 @@ inline fun <reified T : Activity> Context.intentFor(body: Intent.() -> Unit): In
 inline fun <reified T : Activity> Context.startActivity(body: Intent.() -> Unit) {
     startActivity(intentFor<T>(body))
 }
-
 fun FragmentManager.fragmentExists(TAG: String): Boolean {
     return findFragmentByTag(TAG) != null
 }
