@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
 import com.amgdeveloper.cookingapp.model.Recipe
-import com.bumptech.glide.Glide
 
 
 /**
@@ -19,6 +18,10 @@ class RecipeDetailsFragment : Fragment(), DetailPresenter.View{
     private lateinit var recipe: Recipe
     private lateinit var binding : FragmentRecipeDetailsBinding
     private lateinit var presenter : DetailPresenter
+
+    companion object {
+        val TAG: String = RecipeDetailsFragment::class.java.simpleName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

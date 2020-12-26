@@ -3,6 +3,7 @@ package com.amgdeveloper.cookingapp.view.details
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.amgdeveloper.cookingapp.R
+import com.amgdeveloper.cookingapp.common.fragmentExists
 import com.amgdeveloper.cookingapp.model.Recipe
 
 /**
@@ -25,12 +26,14 @@ class RecipeDetailsActivity : AppCompatActivity() {
     }
 
     private fun displayRecipeDetails(recipe: Recipe) {
-        val fragment = RecipeDetailsFragment()
-        val bundle = Bundle()
-        bundle.putParcelable(EXTRA_RECIPE, recipe)
-        fragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.recipeDetailsActivityFl, fragment)
-            .commit()
+        if (!supportFragmentManager.fragmentExists(RecipeDetailsFragment.TAG)) {
+            val fragment = RecipeDetailsFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(EXTRA_RECIPE, recipe)
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.recipeDetailsActivityFl, fragment, RecipeDetailsFragment.TAG)
+                    .commit()
+        }
     }
 }

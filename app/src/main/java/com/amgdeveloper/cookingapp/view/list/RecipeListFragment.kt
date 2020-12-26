@@ -25,6 +25,10 @@ class RecipeListFragment : Fragment(), ListPresenter.View {
     private val presenter : ListPresenter by lazy {ListPresenter(recipeRepository)}
     private lateinit var progressDialog : ProgressBar
 
+    companion object {
+        val TAG: String = RecipeListFragment::class.java.simpleName
+    }
+
 
     override fun onAttach(context: Context) {
         presenter.onCreate(this)
