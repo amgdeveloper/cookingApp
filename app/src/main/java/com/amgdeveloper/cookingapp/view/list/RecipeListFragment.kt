@@ -20,10 +20,15 @@ import com.amgdeveloper.cookingapp.view.list.ListViewModel.UiModel.*
  */
 class RecipeListFragment : Fragment() {
 
+
     private val recipeRepository: RecipeRepository by lazy { RecipeRepository(activity as AppCompatActivity) }
     private lateinit var viewModel : ListViewModel
     private lateinit var adapter : RecipeListAdapter
     private lateinit var progressDialog : ProgressBar
+
+    companion object {
+        val TAG: String = RecipeListFragment::class.java.simpleName
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

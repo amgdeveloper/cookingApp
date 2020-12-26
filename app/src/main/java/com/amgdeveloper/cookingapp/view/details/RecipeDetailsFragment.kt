@@ -1,7 +1,6 @@
 package com.amgdeveloper.cookingapp.view.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +22,11 @@ class RecipeDetailsFragment : Fragment() {
     private lateinit var binding: FragmentRecipeDetailsBinding
     private lateinit var viewModel: DetailViewModel
 
+    companion object {
+        val TAG: String = RecipeDetailsFragment::class.java.simpleName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.e("TAG"," onCreate")
         super.onCreate(savedInstanceState)
         arguments?.let {
             recipe = it.getParcelable(RecipeDetailsActivity.EXTRA_RECIPE)!!
@@ -38,7 +40,6 @@ class RecipeDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e("TAG"," onCreateView")
         binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false)
         recipe.let {
             binding.fragmentRecipeDetailsTitleTv.text = recipe.title
