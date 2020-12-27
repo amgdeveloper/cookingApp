@@ -1,6 +1,7 @@
 package com.amgdeveloper.cookingapp.view.list
 
 import android.Manifest
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,14 @@ class RecipeListFragment : Fragment() {
     private lateinit var viewModel : ListViewModel
     private lateinit var adapter: RecipeListAdapter
     private lateinit var progressDialog: ProgressBar
-    private val coarsePermissionRequester :CoarseLocationPermissionRequester by
-    lazy{CoarseLocationPermissionRequester(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)}
-
+    private lateinit var coarsePermissionRequester :CoarseLocationPermissionRequester
     companion object {
         val TAG: String = RecipeListFragment::class.java.simpleName
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+          coarsePermissionRequester = CoarseLocationPermissionRequester(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
     }
 
     override fun onCreateView(
