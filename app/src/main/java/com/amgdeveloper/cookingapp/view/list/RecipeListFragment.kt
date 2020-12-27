@@ -49,6 +49,15 @@ class RecipeListFragment : Fragment() {
         adapter = RecipeListAdapter(emptyList(), viewModel::onRecipeClicked)
         recyclerView.adapter = adapter
         viewModel.model.observe(viewLifecycleOwner, Observer(this::updateUi))
+
+        viewModel.navigation.observe(viewLifecycleOwner,Observer {event ->
+            event.getContentIfNotHandled().let {
+                context?.startActivity<RecipeDetailsActivity> {
+                    putExtra(RecipeDetailsActivity.EXTRA_RECIPE, it)
+
+                }
+            }
+        })
         return binding.root
     }
 
@@ -58,9 +67,6 @@ class RecipeListFragment : Fragment() {
             is Content -> {
                 adapter.recipes = model.recipes
                 adapter.notifyDataSetChanged()
-            }
-            is Navigation -> context?.startActivity<RecipeDetailsActivity> {
-                this.putExtra(RecipeDetailsActivity.EXTRA_RECIPE, model.recipe)
             }
             RequestLocationPermission -> coarsePermissionRequester.request {
                 viewModel.onCoarsePermissionRequested()

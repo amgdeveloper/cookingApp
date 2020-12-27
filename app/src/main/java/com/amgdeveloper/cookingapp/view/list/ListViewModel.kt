@@ -3,6 +3,7 @@ package com.amgdeveloper.cookingapp.view.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.amgdeveloper.cookingapp.common.Event
 import com.amgdeveloper.cookingapp.common.Scope
 import com.amgdeveloper.cookingapp.model.Recipe
 import com.amgdeveloper.cookingapp.network.RecipeRepository
@@ -20,9 +21,11 @@ class ListViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
     sealed class UiModel {
         object Loading : UiModel()
         class Content(val recipes: List<Recipe>) : UiModel()
-        class Navigation(val recipe: Recipe) : UiModel()
         object RequestLocationPermission : UiModel()
     }
+
+    private val _navigation = MutableLiveData < Event<Recipe>>()
+    val navigation :  LiveData<Event<Recipe >> =_navigation
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
@@ -48,6 +51,6 @@ class ListViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
     }
 
     fun onRecipeClicked(recipe: Recipe) {
-        _model.value = UiModel.Navigation(recipe)
+        _navigation.value = Event(recipe)
     }
 }
