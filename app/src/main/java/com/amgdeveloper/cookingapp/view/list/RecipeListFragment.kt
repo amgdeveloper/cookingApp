@@ -1,13 +1,14 @@
 package com.amgdeveloper.cookingapp.view.list
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.amgdeveloper.cookingapp.CoarseLocationPermissionRequester
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.startActivity
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
@@ -21,10 +22,12 @@ import com.amgdeveloper.cookingapp.view.list.ListViewModel.UiModel.*
 class RecipeListFragment : Fragment() {
 
 
-    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(activity as AppCompatActivity) }
+    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().application) }
     private lateinit var viewModel : ListViewModel
-    private lateinit var adapter : RecipeListAdapter
-    private lateinit var progressDialog : ProgressBar
+    private lateinit var adapter: RecipeListAdapter
+    private lateinit var progressDialog: ProgressBar
+    private val coarsePermissionRequester :CoarseLocationPermissionRequester by
+    lazy{CoarseLocationPermissionRequester(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)}
 
     companion object {
         val TAG: String = RecipeListFragment::class.java.simpleName
@@ -54,6 +57,9 @@ class RecipeListFragment : Fragment() {
             }
             is Navigation -> context?.startActivity<RecipeDetailsActivity> {
                 this.putExtra(RecipeDetailsActivity.EXTRA_RECIPE, model.recipe)
+            }
+            RequestLocationPermission -> coarsePermissionRequester.request {
+                viewModel.onCoarsePermissionRequested()
             }
         }
     }

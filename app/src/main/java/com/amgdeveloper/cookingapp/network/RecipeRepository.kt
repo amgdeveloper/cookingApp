@@ -1,6 +1,6 @@
 package com.amgdeveloper.cookingapp.network
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Application
 import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.model.CuisineRepository
 import com.amgdeveloper.cookingapp.model.Recipe
@@ -8,9 +8,9 @@ import com.amgdeveloper.cookingapp.model.Recipe
 /**
  * Created by amgdeveloper on 05/12/2020
  */
-class RecipeRepository(activity: AppCompatActivity) {
+class RecipeRepository(application: Application) {
 
-    private val cuisineRepository = CuisineRepository(activity)
+    private val cuisineRepository = CuisineRepository(application)
 
     suspend fun getRecipesByRegion(): List<Recipe> {
         val cuisine = cuisineRepository.getCuisine()

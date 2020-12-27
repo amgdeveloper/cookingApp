@@ -1,18 +1,18 @@
 package com.amgdeveloper.cookingapp.model
 
 import android.Manifest
-import android.app.Activity
+import android.app.Application
 import android.location.Geocoder
 import android.location.Location
 
 /**
  * Created by amgdeveloper on 05/12/2020
  */
-class CuisineRepository(activity: Activity) {
+class CuisineRepository(application: Application) {
 
-    private var permissionChecker = PermissionChecker(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
-    private var locationDataSource: PlayServicesLocationDataSource = PlayServicesLocationDataSource(activity)
-    private var geocoder: Geocoder = Geocoder(activity)
+    private var permissionChecker = PermissionChecker(application, Manifest.permission.ACCESS_COARSE_LOCATION)
+    private var locationDataSource: PlayServicesLocationDataSource = PlayServicesLocationDataSource(application)
+    private var geocoder: Geocoder = Geocoder(application)
 
     companion object {
         private const val DEFAULT_CUISINE = "italian"
@@ -25,7 +25,7 @@ class CuisineRepository(activity: Activity) {
     }
 
     private suspend fun getLastLocation(): Location? {
-        return if (permissionChecker.isCoarseLocationPermissionGranted()) {
+        return if (permissionChecker.check()) {
             locationDataSource.getLastLocation()
         } else {
             null

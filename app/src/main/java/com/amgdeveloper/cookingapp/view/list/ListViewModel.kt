@@ -21,6 +21,7 @@ class ListViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
         object Loading : UiModel()
         class Content(val recipes: List<Recipe>) : UiModel()
         class Navigation(val recipe: Recipe) : UiModel()
+        object RequestLocationPermission : UiModel()
     }
 
     private val _model = MutableLiveData<UiModel>()
@@ -31,12 +32,15 @@ class ListViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
         }
 
 
-    private fun refresh() {
+    private fun refresh(){
+        _model.value = UiModel.RequestLocationPermission
+    }
+
+    fun onCoarsePermissionRequested() {
         launch {
             _model.value = UiModel.Loading
             _model.value = UiModel.Content(recipeRepository.getRecipesByRegion())
         }
-
     }
 
     override fun onCleared() {
