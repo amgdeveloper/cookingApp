@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.view.details
+package com.amgdeveloper.cookingapp.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
-import com.amgdeveloper.cookingapp.model.Recipe
+import com.amgdeveloper.cookingapp.model.server.Recipe
 
 
 /**

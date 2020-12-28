@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.view.list
+package com.amgdeveloper.cookingapp.ui.main
 
 import android.Manifest
 import android.content.Context
@@ -13,9 +13,9 @@ import com.amgdeveloper.cookingapp.CoarseLocationPermissionRequester
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.startActivity
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
-import com.amgdeveloper.cookingapp.network.RecipeRepository
-import com.amgdeveloper.cookingapp.view.details.RecipeDetailsActivity
-import com.amgdeveloper.cookingapp.view.list.ListViewModel.UiModel.*
+import com.amgdeveloper.cookingapp.model.server.RecipeRepository
+import com.amgdeveloper.cookingapp.ui.detail.RecipeDetailsActivity
+import com.amgdeveloper.cookingapp.ui.main.ListViewModel.UiModel.*
 
 /**
  * Created by amgdeveloper on 18/11/2020

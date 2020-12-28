@@ -1,12 +1,12 @@
-package com.amgdeveloper.cookingapp.view.list
+package com.amgdeveloper.cookingapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amgdeveloper.cookingapp.common.Event
 import com.amgdeveloper.cookingapp.common.Scope
-import com.amgdeveloper.cookingapp.model.Recipe
-import com.amgdeveloper.cookingapp.network.RecipeRepository
+import com.amgdeveloper.cookingapp.model.server.Recipe
+import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -25,7 +25,7 @@ class ListViewModel(private val recipeRepository: RecipeRepository) : ViewModel(
     }
 
     private val _navigation = MutableLiveData < Event<Recipe>>()
-    val navigation :  LiveData<Event<Recipe >> =_navigation
+    val navigation :  LiveData<Event<Recipe>> =_navigation
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>

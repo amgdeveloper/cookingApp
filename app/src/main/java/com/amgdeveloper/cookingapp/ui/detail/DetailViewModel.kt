@@ -1,11 +1,11 @@
-package com.amgdeveloper.cookingapp.view.details
+package com.amgdeveloper.cookingapp.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.common.Scope
-import com.amgdeveloper.cookingapp.network.RecipeClient
+import com.amgdeveloper.cookingapp.model.server.RecipeClient
 import kotlinx.coroutines.launch
 
 class DetailViewModel(val id: Int) : Scope by Scope.Impl(), ViewModel() {

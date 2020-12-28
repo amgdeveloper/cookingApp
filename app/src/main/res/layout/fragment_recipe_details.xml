@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context=".view.details.RecipeDetailsFragment">
+    tools:context=".ui.detail.RecipeDetailsFragment">
 
     <ImageView
         android:id="@+id/fragmentRecipeDetailsHeaderIv"

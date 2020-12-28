@@ -1,10 +1,10 @@
-package com.amgdeveloper.cookingapp.view.details
+package com.amgdeveloper.cookingapp.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.common.fragmentExists
-import com.amgdeveloper.cookingapp.model.Recipe
+import com.amgdeveloper.cookingapp.model.server.Recipe
 
 /**
  * Created by amgdeveloper on 22/11/2020

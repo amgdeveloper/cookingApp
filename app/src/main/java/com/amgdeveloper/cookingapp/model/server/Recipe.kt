@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model
+package com.amgdeveloper.cookingapp.model.server
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

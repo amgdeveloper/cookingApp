@@ -1,11 +1,11 @@
-package com.amgdeveloper.cookingapp.view.list
+package com.amgdeveloper.cookingapp.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.RecipeListItemBinding
-import com.amgdeveloper.cookingapp.model.Recipe
+import com.amgdeveloper.cookingapp.model.server.Recipe
 
 /**
  * Created by amgdeveloper on 19/11/2020

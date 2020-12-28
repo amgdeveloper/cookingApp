@@ -1,7 +1,6 @@
-package com.amgdeveloper.cookingapp.network
+package com.amgdeveloper.cookingapp.model.server
 
 import RecipeSummary
-import com.amgdeveloper.cookingapp.model.RecipeResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

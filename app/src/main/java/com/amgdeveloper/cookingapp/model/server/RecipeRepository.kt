@@ -1,9 +1,8 @@
-package com.amgdeveloper.cookingapp.network
+package com.amgdeveloper.cookingapp.model.server
 
 import android.app.Application
 import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.model.CuisineRepository
-import com.amgdeveloper.cookingapp.model.Recipe
 
 /**
  * Created by amgdeveloper on 05/12/2020

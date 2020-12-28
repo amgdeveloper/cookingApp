@@ -1,11 +1,10 @@
-package com.amgdeveloper.cookingapp.view
+package com.amgdeveloper.cookingapp.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.common.fragmentExists
 import com.amgdeveloper.cookingapp.databinding.ActivityMainBinding
-import com.amgdeveloper.cookingapp.view.list.RecipeListFragment
 
 class MainActivity : AppCompatActivity() {
 
