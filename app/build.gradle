@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'  //Added to be able to use Parcelize
+    id 'kotlin-kapt'
 }
 
 def localProperties = new Properties()
@@ -79,4 +80,8 @@ dependencies {
 
     //Architecture components
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+
+    //Room
+    implementation "androidx.room:room-runtime:$rootProject.room"
+    kapt "androidx.room:room-compiler:$rootProject.room"
 }
