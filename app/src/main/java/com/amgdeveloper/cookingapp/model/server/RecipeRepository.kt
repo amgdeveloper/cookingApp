@@ -19,4 +19,7 @@ class RecipeRepository(application: Application) {
         val recipeResult = RecipeClient.service.getRandomRecipes(map)
         return recipeResult.results
     }
+
+    suspend fun getRecipeSummary(id : Int):RecipeSummary =
+            RecipeClient.service.getRecipeSummary(id, BuildConfig.API_KEY)
 }

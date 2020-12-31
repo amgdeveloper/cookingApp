@@ -10,6 +10,7 @@ import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
 import com.amgdeveloper.cookingapp.model.server.Recipe
+import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 
 
 /**
@@ -20,6 +21,7 @@ class RecipeDetailsFragment : Fragment() {
     private lateinit var recipe: Recipe
     private lateinit var binding: FragmentRecipeDetailsBinding
     private lateinit var viewModel: DetailViewModel
+    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().application) }
 
     companion object {
         val TAG: String = RecipeDetailsFragment::class.java.simpleName
@@ -30,7 +32,7 @@ class RecipeDetailsFragment : Fragment() {
         arguments?.let {
             recipe = it.getParcelable(RecipeDetailsActivity.EXTRA_RECIPE)!!
             recipe.let {
-                viewModel = getViewModel { DetailViewModel(recipe.id) }
+                viewModel = getViewModel { DetailViewModel(recipeRepository, recipe.id) }
             }
         }
     }

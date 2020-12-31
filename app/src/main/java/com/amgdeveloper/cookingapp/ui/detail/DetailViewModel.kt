@@ -3,12 +3,11 @@ package com.amgdeveloper.cookingapp.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.common.Scope
-import com.amgdeveloper.cookingapp.model.server.RecipeClient
+import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 import kotlinx.coroutines.launch
 
-class DetailViewModel(val id: Int) : Scope by Scope.Impl(), ViewModel() {
+class DetailViewModel(private val recipeRepository: RecipeRepository, val id: Int) : Scope by Scope.Impl(), ViewModel() {
 
     class UiModel(val summary: String)
 
@@ -30,8 +29,7 @@ class DetailViewModel(val id: Int) : Scope by Scope.Impl(), ViewModel() {
 
     private fun getSummary(id: Int) {
         launch {
-            val summary = RecipeClient.service.getRecipeSummary(id, BuildConfig.API_KEY)
-            _model.value = UiModel(summary.summary)
+            _model.value = UiModel(recipeRepository.getRecipeSummary(id).summary)
         }
     }
 }
