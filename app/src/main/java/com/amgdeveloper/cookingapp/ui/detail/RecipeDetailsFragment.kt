@@ -45,7 +45,7 @@ class RecipeDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false)
         recipe.let {
-            binding.fragmentRecipeDetailsTitleTv.text = recipe.title
+            binding.fragmentRecipeDetailsToolbar.title = recipe.title
             context?.let {
                 binding.fragmentRecipeDetailsHeaderIv.loadImage(recipe.image)
                 viewModel.model.observe(viewLifecycleOwner, Observer {
