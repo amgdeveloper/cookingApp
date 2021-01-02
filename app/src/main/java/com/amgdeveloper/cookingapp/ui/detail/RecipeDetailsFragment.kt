@@ -20,7 +20,6 @@ import com.amgdeveloper.cookingapp.model.server.RecipeRepository
  */
 class RecipeDetailsFragment : Fragment() {
 
-    private lateinit var recipe: Recipe
     private lateinit var binding: FragmentRecipeDetailsBinding
     private lateinit var viewModel: DetailViewModel
     private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().app) }
@@ -32,9 +31,9 @@ class RecipeDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            recipe = it.getParcelable(RecipeDetailsActivity.EXTRA_RECIPE)!!
+            val recipe: Recipe = it.getParcelable(RecipeDetailsActivity.EXTRA_RECIPE)!!
             recipe.let {
-                viewModel = getViewModel { DetailViewModel(recipeRepository, recipe.id) }
+                viewModel = getViewModel { DetailViewModel(recipeRepository, recipe) }
             }
         }
     }
@@ -44,15 +43,18 @@ class RecipeDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false)
-        recipe.let {
-            binding.fragmentRecipeDetailsToolbar.title = recipe.title
-            context?.let {
-                binding.fragmentRecipeDetailsHeaderIv.loadImage(recipe.image)
-                viewModel.model.observe(viewLifecycleOwner, Observer {
-                    binding.fragmentRecipeDetailsSummaryTv.text = it.summary
-                })
-            }
+
+        context?.let {
+            viewModel.model.observe(viewLifecycleOwner, Observer {
+                updateUi(it)
+            })
         }
         return binding.root
+    }
+
+    private fun updateUi(model: DetailViewModel.UiModel) = with(binding) {
+        fragmentRecipeDetailsToolbar.title = model.title
+        fragmentRecipeDetailsHeaderIv.loadImage(model.image)
+        fragmentRecipeDetailsSummaryTv.text = model.summary
     }
 }
