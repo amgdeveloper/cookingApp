@@ -4,6 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
+import kotlin.Int
 
 /**
  * Created by amgdeveloper on 18/11/2020

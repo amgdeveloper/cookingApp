@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.amgdeveloper.cookingapp.CoarseLocationPermissionRequester
+import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.startActivity
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
@@ -23,7 +24,7 @@ import com.amgdeveloper.cookingapp.ui.main.ListViewModel.UiModel.*
 class RecipeListFragment : Fragment() {
 
 
-    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().application) }
+    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().app) }
     private lateinit var viewModel : ListViewModel
     private lateinit var adapter: RecipeListAdapter
     private lateinit var progressDialog: ProgressBar

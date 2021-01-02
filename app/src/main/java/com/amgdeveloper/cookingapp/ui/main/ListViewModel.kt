@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amgdeveloper.cookingapp.common.Event
 import com.amgdeveloper.cookingapp.common.Scope
-import com.amgdeveloper.cookingapp.model.server.Recipe
+import com.amgdeveloper.cookingapp.model.database.Recipe
 import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 import kotlinx.coroutines.launch
 

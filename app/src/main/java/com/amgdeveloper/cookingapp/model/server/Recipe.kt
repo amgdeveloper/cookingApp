@@ -1,12 +1,15 @@
 package com.amgdeveloper.cookingapp.model.server
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+/**
+ * Created by amgdeveloper on 02/01/2020
+ */
+
 data class Recipe(
-    val id: Int,
-    val image: String,
-    val imageType: String,
-    val title: String
-) : Parcelable
+        val id: Int,
+        val image: String,
+        val imageType: String,
+        val title: String,
+        val cuisine: String,
+        val favorite: Boolean
+)

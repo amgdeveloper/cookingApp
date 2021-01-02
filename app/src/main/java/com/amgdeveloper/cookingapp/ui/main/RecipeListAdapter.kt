@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.RecipeListItemBinding
-import com.amgdeveloper.cookingapp.model.server.Recipe
+import com.amgdeveloper.cookingapp.model.database.Recipe
 
 /**
  * Created by amgdeveloper on 19/11/2020

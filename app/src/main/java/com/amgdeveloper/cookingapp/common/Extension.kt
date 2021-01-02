@@ -33,3 +33,6 @@ inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline factory: ()
     }
     return ViewModelProvider(this, vmFactory).get()
 }
+
+val Context.app: RecipesApp
+    get() = applicationContext as RecipesApp

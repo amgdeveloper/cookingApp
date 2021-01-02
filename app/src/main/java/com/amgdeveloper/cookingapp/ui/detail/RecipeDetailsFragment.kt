@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
-import com.amgdeveloper.cookingapp.model.server.Recipe
+import com.amgdeveloper.cookingapp.model.database.Recipe
+
 import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 
 
@@ -21,7 +23,7 @@ class RecipeDetailsFragment : Fragment() {
     private lateinit var recipe: Recipe
     private lateinit var binding: FragmentRecipeDetailsBinding
     private lateinit var viewModel: DetailViewModel
-    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().application) }
+    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().app) }
 
     companion object {
         val TAG: String = RecipeDetailsFragment::class.java.simpleName

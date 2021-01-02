@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.common.fragmentExists
-import com.amgdeveloper.cookingapp.model.server.Recipe
+import com.amgdeveloper.cookingapp.model.database.Recipe
 
 /**
  * Created by amgdeveloper on 22/11/2020
@@ -20,7 +20,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recipe_details)
 
         val recipe = intent.getParcelableExtra<Recipe>(EXTRA_RECIPE)
-         if (recipe != null){
+        if (recipe != null) {
             displayRecipeDetails(recipe)
         }
     }
