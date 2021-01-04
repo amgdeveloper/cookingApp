@@ -8,15 +8,17 @@ import com.amgdeveloper.cookingapp.model.database.Recipe
 import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val recipeRepository: RecipeRepository, private val recipe: Recipe)
+class DetailViewModel(private val recipeRepository: RecipeRepository, private val recipeId: Int)
     : Scope by Scope.Impl(), ViewModel() {
 
     class UiModel(val title: String, val summary: String, var favorite: Boolean, val image: String)
 
+    private lateinit var recipe : Recipe
+
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
         get() {
-            if (_model.value == null) getSummary(recipe.id)
+            if (_model.value == null) getSummary(recipeId)
             return _model
         }
 
@@ -31,6 +33,7 @@ class DetailViewModel(private val recipeRepository: RecipeRepository, private va
 
     private fun getSummary(id: Int) {
         launch {
+            recipe = recipeRepository.getRecipe(id)
             _model.value = UiModel(
                     recipe.title,
                     recipeRepository.getRecipeSummary(id).summary,

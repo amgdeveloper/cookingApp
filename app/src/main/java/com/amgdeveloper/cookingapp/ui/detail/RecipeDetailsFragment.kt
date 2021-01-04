@@ -12,8 +12,6 @@ import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
-import com.amgdeveloper.cookingapp.model.database.Recipe
-
 import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 
 
@@ -33,17 +31,15 @@ class RecipeDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val recipe: Recipe = it.getParcelable(RecipeDetailsActivity.EXTRA_RECIPE)!!
-            recipe.let {
-                viewModel = getViewModel { DetailViewModel(recipeRepository, recipe) }
-            }
+            val recipeId = it.getInt(RecipeDetailsActivity.EXTRA_RECIPE_ID)
+            viewModel = getViewModel { DetailViewModel(recipeRepository, recipeId) }
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false)
 
         binding.favoriteFab.setOnClickListener {

@@ -24,4 +24,7 @@ interface RecipeDao {
     @Query("UPDATE Recipe SET favorite = CASE WHEN :favorite THEN 1 ELSE 0 END" +
             " WHERE id == :id")
     fun markAsFavorite(id:Int, favorite:Boolean):Int
+
+    @Query("SELECT * FROM Recipe WHERE id = :id")
+    fun getRecipeById(id : Int) : Recipe
 }

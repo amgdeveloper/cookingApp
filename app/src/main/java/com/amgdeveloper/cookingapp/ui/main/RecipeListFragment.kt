@@ -54,7 +54,7 @@ class RecipeListFragment : Fragment() {
         viewModel.navigation.observe(viewLifecycleOwner,Observer {event ->
             event.getContentIfNotHandled()?.let {
                 context?.startActivity<RecipeDetailsActivity> {
-                    putExtra(RecipeDetailsActivity.EXTRA_RECIPE, it)
+                    putExtra(RecipeDetailsActivity.EXTRA_RECIPE_ID, it.id)
                 }
             }
         })

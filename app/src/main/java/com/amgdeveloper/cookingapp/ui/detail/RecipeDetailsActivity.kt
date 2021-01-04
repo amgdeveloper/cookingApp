@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.common.fragmentExists
-import com.amgdeveloper.cookingapp.model.database.Recipe
 
 /**
  * Created by amgdeveloper on 22/11/2020
@@ -12,24 +11,24 @@ import com.amgdeveloper.cookingapp.model.database.Recipe
 class RecipeDetailsActivity : AppCompatActivity() {
 
     companion object{
-        const val EXTRA_RECIPE = "recipe"
+        const val EXTRA_RECIPE_ID = "recipe_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_details)
 
-        val recipe = intent.getParcelableExtra<Recipe>(EXTRA_RECIPE)
-        if (recipe != null) {
-            displayRecipeDetails(recipe)
+        val recipeId = intent.getIntExtra(EXTRA_RECIPE_ID,-1)
+        if (recipeId != -1) {
+            displayRecipeDetails(recipeId)
         }
     }
 
-    private fun displayRecipeDetails(recipe: Recipe) {
+    private fun displayRecipeDetails(recipeId: Int) {
         if (!supportFragmentManager.fragmentExists(RecipeDetailsFragment.TAG)) {
             val fragment = RecipeDetailsFragment()
             val bundle = Bundle()
-            bundle.putParcelable(EXTRA_RECIPE, recipe)
+            bundle.putInt(EXTRA_RECIPE_ID, recipeId)
             fragment.arguments = bundle
             supportFragmentManager.beginTransaction()
                     .replace(R.id.recipeDetailsActivityFl, fragment, RecipeDetailsFragment.TAG)

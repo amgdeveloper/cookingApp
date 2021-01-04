@@ -37,6 +37,13 @@ class RecipeRepository(application: RecipesApp) {
         }
     }
 
+    suspend fun getRecipe(id: Int)= withContext(Dispatchers.IO){
+        with(db.recipeDao()){
+            getRecipeById(id)
+        }
+    }
+
+
     suspend fun getRecipeSummary(id : Int): DbRecipeSummary = withContext(Dispatchers.IO) {
         with(db.recipeDao()) {
             var summary : DbRecipeSummary = getRecipeSummary(id)
