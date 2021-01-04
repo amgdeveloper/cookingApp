@@ -22,7 +22,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:id="@+id/fragmentRecipeDetailsHeaderIv"
+                android:id="@+id/headerIv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -31,7 +31,7 @@
                 tools:src="@tools:sample/avatars" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/fragmentRecipeDetailsToolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 tools:title="Recipe Name" />
@@ -48,7 +48,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:id="@+id/fragmentRecipeDetailsSummaryTv"
+            android:id="@+id/summary_tv"
             style="@style/Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +58,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/favorite_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

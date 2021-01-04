@@ -5,7 +5,6 @@ import com.amgdeveloper.cookingapp.common.RecipesApp
 import com.amgdeveloper.cookingapp.model.CuisineRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.Int
 import com.amgdeveloper.cookingapp.model.database.Recipe as DbRecipe
 import com.amgdeveloper.cookingapp.model.database.RecipeSummary as DbRecipeSummary
 import com.amgdeveloper.cookingapp.model.server.Recipe as ServerRecipe
@@ -48,6 +47,10 @@ class RecipeRepository(application: RecipesApp) {
             }
             summary
         }
+    }
+
+    suspend fun markRecipeAsFavorite(id:Int, favorite: Boolean)= withContext(Dispatchers.IO){
+       db.recipeDao().markAsFavorite(id, favorite)
     }
 
     private fun ServerRecipe.convertToDbRecipe(cuisine: String) = DbRecipe(

@@ -1,9 +1,6 @@
 package com.amgdeveloper.cookingapp.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 /**
  * Created by amgdeveloper on 28/12/2020
@@ -24,4 +21,7 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecipeSummary(summary: RecipeSummary)
 
+    @Query("UPDATE Recipe SET favorite = CASE WHEN :favorite THEN 1 ELSE 0 END" +
+            " WHERE id == :id")
+    fun markAsFavorite(id:Int, favorite:Boolean):Int
 }

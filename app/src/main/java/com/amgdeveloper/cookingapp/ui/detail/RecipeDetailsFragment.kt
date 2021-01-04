@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
@@ -44,6 +46,10 @@ class RecipeDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false)
 
+        binding.favoriteFab.setOnClickListener {
+            viewModel.onFavoriteClicked()
+        }
+
         context?.let {
             viewModel.model.observe(viewLifecycleOwner, Observer {
                 updateUi(it)
@@ -53,8 +59,10 @@ class RecipeDetailsFragment : Fragment() {
     }
 
     private fun updateUi(model: DetailViewModel.UiModel) = with(binding) {
-        fragmentRecipeDetailsToolbar.title = model.title
-        fragmentRecipeDetailsHeaderIv.loadImage(model.image)
-        fragmentRecipeDetailsSummaryTv.text = model.summary
+        toolbar.title = model.title
+        headerIv.loadImage(model.image)
+        summaryTv.text = model.summary
+        val icon = if (model.favorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
+        favoriteFab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, icon) })
     }
 }

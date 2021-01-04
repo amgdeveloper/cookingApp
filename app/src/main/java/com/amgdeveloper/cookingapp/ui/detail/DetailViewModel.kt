@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.ui.detail
+package com.amgdeveloper. cookingapp.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,9 +8,10 @@ import com.amgdeveloper.cookingapp.model.database.Recipe
 import com.amgdeveloper.cookingapp.model.server.RecipeRepository
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val recipeRepository: RecipeRepository, val recipe: Recipe) : Scope by Scope.Impl(), ViewModel() {
+class DetailViewModel(private val recipeRepository: RecipeRepository, private val recipe: Recipe)
+    : Scope by Scope.Impl(), ViewModel() {
 
-    class UiModel(val title: String, val summary: String, val favorite: Boolean, val image: String)
+    class UiModel(val title: String, val summary: String, var favorite: Boolean, val image: String)
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
@@ -35,6 +36,15 @@ class DetailViewModel(private val recipeRepository: RecipeRepository, val recipe
                     recipeRepository.getRecipeSummary(id).summary,
                     recipe.favorite,
                     recipe.image)
+        }
+    }
+
+    fun onFavoriteClicked() {
+        launch {
+            _model.value?.let {
+                _model.value = UiModel(it.title, it.summary, !it.favorite, it.image)
+                recipeRepository.markRecipeAsFavorite(recipe.id, !it.favorite)
+            }
         }
     }
 }
