@@ -7,12 +7,21 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.amgdeveloper.cookingapp.AndroidPermissionChecker
+import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.R
 import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.loadImage
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeDetailsBinding
-import com.amgdeveloper.cookingapp.model.server.RecipeRepository
+import com.amgdeveloper.cookingapp.model.PlayServicesLocationDataSource
+import com.amgdeveloper.cookingapp.model.database.RoomDataSource
+import com.amgdeveloper.cookingapp.model.server.SpoonacularDataSource
+import com.amgdeveloper.data.repository.CuisineRepository
+import com.amgdeveloper.data.repository.RecipeRepository
+import com.amgdeveloper.usecases.GetRecipeById
+import com.amgdeveloper.usecases.GetRecipeSummary
+import com.amgdeveloper.usecases.ToggleRecipeFavorite
 
 
 /**
@@ -22,7 +31,6 @@ class RecipeDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipeDetailsBinding
     private lateinit var viewModel: DetailViewModel
-    private val recipeRepository: RecipeRepository by lazy { RecipeRepository(requireActivity().app) }
 
     companion object {
         val TAG: String = RecipeDetailsFragment::class.java.simpleName
@@ -32,7 +40,23 @@ class RecipeDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             val recipeId = it.getInt(RecipeDetailsActivity.EXTRA_RECIPE_ID)
-            viewModel = getViewModel { DetailViewModel(recipeRepository, recipeId) }
+
+            val cuisineRepository = CuisineRepository(
+                PlayServicesLocationDataSource(requireActivity().application),
+                AndroidPermissionChecker(requireActivity().application))
+
+            val recipeRepository = RecipeRepository(
+                RoomDataSource(requireActivity().app.db),
+                SpoonacularDataSource(BuildConfig.API_KEY), cuisineRepository
+            )
+
+            viewModel = getViewModel {
+                DetailViewModel(
+                    GetRecipeById(recipeRepository),
+                    GetRecipeSummary(recipeRepository),
+                    ToggleRecipeFavorite(recipeRepository), recipeId
+                )
+            }
         }
     }
 

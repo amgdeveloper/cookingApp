@@ -16,7 +16,7 @@ interface RecipeDao {
     fun insertRecipes(recipes: List<Recipe>)
 
     @Query("SELECT * FROM RecipeSummary WHERE recipeId =:id")
-    fun getRecipeSummary(id: Int): RecipeSummary
+    fun getRecipeSummary(id: Int): RecipeSummary?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecipeSummary(summary: RecipeSummary)
