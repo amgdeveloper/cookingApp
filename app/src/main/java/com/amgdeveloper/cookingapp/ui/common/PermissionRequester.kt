@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp
+package com.amgdeveloper.cookingapp.ui.common
 
 import android.app.Activity
 import com.karumi.dexter.Dexter
@@ -10,7 +10,7 @@ import com.karumi.dexter.listener.single.BasePermissionListener
  * Created by amgdeveloper on 27/12/2020
  */
 
-class CoarseLocationPermissionRequester(private val activity: Activity, private val permission: String) {
+class PermissionRequester(private val activity: Activity, private val permission: String) {
 
     fun request(continuation: (Boolean) -> Unit) {
         Dexter.withActivity(activity)

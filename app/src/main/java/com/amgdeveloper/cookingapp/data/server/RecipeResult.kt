@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model.server
+package com.amgdeveloper.cookingapp.data.server
 
 data class RecipeResult(
         val number: Int,

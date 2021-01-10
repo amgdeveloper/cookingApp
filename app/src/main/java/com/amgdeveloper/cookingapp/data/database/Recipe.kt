@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model.database
+package com.amgdeveloper.cookingapp.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

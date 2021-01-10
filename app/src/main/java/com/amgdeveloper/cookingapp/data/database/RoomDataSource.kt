@@ -1,9 +1,9 @@
-package com.amgdeveloper.cookingapp.model.database
+package com.amgdeveloper.cookingapp.data.database
 
-import com.amgdeveloper.cookingapp.model.toDatabaseRecipe
-import com.amgdeveloper.cookingapp.model.toDatabaseRecipeSummary
-import com.amgdeveloper.cookingapp.model.toDomainRecipe
-import com.amgdeveloper.cookingapp.model.toDomainRecipeSummary
+import com.amgdeveloper.cookingapp.data.toDatabaseRecipe
+import com.amgdeveloper.cookingapp.data.toDatabaseRecipeSummary
+import com.amgdeveloper.cookingapp.data.toDomainRecipe
+import com.amgdeveloper.cookingapp.data.toDomainRecipeSummary
 import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.domain.RecipeSummary
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp
+package com.amgdeveloper.cookingapp.data
 
 import android.Manifest
 import android.app.Application

@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model.database
+package com.amgdeveloper.cookingapp.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

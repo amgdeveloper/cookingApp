@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model.server
+package com.amgdeveloper.cookingapp.data.server
 
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

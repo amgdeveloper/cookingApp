@@ -9,16 +9,16 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.amgdeveloper.cookingapp.AndroidPermissionChecker
+import com.amgdeveloper.cookingapp.data.AndroidPermissionChecker
 import com.amgdeveloper.cookingapp.BuildConfig
-import com.amgdeveloper.cookingapp.CoarseLocationPermissionRequester
+import com.amgdeveloper.cookingapp.ui.common.PermissionRequester
 import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.startActivity
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
-import com.amgdeveloper.cookingapp.model.PlayServicesLocationDataSource
-import com.amgdeveloper.cookingapp.model.database.RoomDataSource
-import com.amgdeveloper.cookingapp.model.server.SpoonacularDataSource
+import com.amgdeveloper.cookingapp.data.PlayServicesLocationDataSource
+import com.amgdeveloper.cookingapp.data.database.RoomDataSource
+import com.amgdeveloper.cookingapp.data.server.SpoonacularDataSource
 import com.amgdeveloper.cookingapp.ui.detail.RecipeDetailsActivity
 import com.amgdeveloper.cookingapp.ui.main.ListViewModel.UiModel.*
 import com.amgdeveloper.data.repository.CuisineRepository
@@ -32,14 +32,14 @@ class RecipeListFragment : Fragment() {
     private lateinit var viewModel : ListViewModel
     private lateinit var adapter: RecipeListAdapter
     private lateinit var progressDialog: ProgressBar
-    private lateinit var coarsePermissionRequester :CoarseLocationPermissionRequester
+    private lateinit var coarsePermissionRequester : PermissionRequester
     companion object {
         val TAG: String = RecipeListFragment::class.java.simpleName
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-          coarsePermissionRequester = CoarseLocationPermissionRequester(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+          coarsePermissionRequester = PermissionRequester(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
     }
 
     override fun onCreateView(

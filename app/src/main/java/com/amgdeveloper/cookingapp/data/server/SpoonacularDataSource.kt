@@ -1,7 +1,7 @@
-package com.amgdeveloper.cookingapp.model.server
+package com.amgdeveloper.cookingapp.data.server
 
-import com.amgdeveloper.cookingapp.model.toDomainRecipe
-import com.amgdeveloper.cookingapp.model.toDomainRecipeSummary
+import com.amgdeveloper.cookingapp.data.toDomainRecipe
+import com.amgdeveloper.cookingapp.data.toDomainRecipeSummary
 import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.domain.RecipeSummary
 import com.amgdeveloper.data.source.RemoteDataSource

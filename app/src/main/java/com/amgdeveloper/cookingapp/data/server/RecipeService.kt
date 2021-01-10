@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model.server
+package com.amgdeveloper.cookingapp.data.server
 
 import retrofit2.http.GET
 import retrofit2.http.Path

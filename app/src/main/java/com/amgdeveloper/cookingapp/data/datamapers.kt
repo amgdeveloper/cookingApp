@@ -1,9 +1,9 @@
-package com.amgdeveloper.cookingapp.model
+package com.amgdeveloper.cookingapp.data
 
-import com.amgdeveloper.cookingapp.model.database.Recipe as DatabaseRecipe
-import com.amgdeveloper.cookingapp.model.database.RecipeSummary as DatabaseRecipeSummary
-import com.amgdeveloper.cookingapp.model.server.Recipe as ServerRecipe
-import com.amgdeveloper.cookingapp.model.server.RecipeSummary as ServerRecipeSummary
+import com.amgdeveloper.cookingapp.data.database.Recipe as DatabaseRecipe
+import com.amgdeveloper.cookingapp.data.database.RecipeSummary as DatabaseRecipeSummary
+import com.amgdeveloper.cookingapp.data.server.Recipe as ServerRecipe
+import com.amgdeveloper.cookingapp.data.server.RecipeSummary as ServerRecipeSummary
 import com.amgdeveloper.domain.Recipe as DomainRecipe
 import com.amgdeveloper.domain.RecipeSummary as DomainRecipeSummary
 

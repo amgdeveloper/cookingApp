@@ -1,4 +1,4 @@
-package com.amgdeveloper.cookingapp.model
+package com.amgdeveloper.cookingapp.data
 
 import android.annotation.SuppressLint
 import android.app.Application
