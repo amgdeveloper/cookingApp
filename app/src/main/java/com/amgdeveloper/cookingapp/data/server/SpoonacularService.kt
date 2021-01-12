@@ -10,7 +10,7 @@ import kotlin.Int
  * Created by amgdeveloper on 18/11/2020
  */
 
-interface RecipeService {
+interface SpoonacularService {
     @GET("recipes/complexSearch")
     suspend fun getRandomRecipes(@QueryMap options  :Map <String, String>): RecipeResult
 

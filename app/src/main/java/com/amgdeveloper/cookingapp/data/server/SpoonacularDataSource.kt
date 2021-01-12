@@ -15,10 +15,10 @@ class SpoonacularDataSource(private val apiKey: String) : RemoteDataSource {
         val map = mutableMapOf<String, String>()
         map["apiKey"] = apiKey
         map["cuisine"] = cuisine
-        return RecipeClient.service.getRandomRecipes(map).results.map { it.toDomainRecipe(cuisine) }
+        return Spoonacular.service.getRandomRecipes(map).results.map { it.toDomainRecipe(cuisine) }
     }
 
     override suspend fun getRecipeSummary(id: Int): RecipeSummary {
-        return RecipeClient.service.getRecipeSummary(id, apiKey).toDomainRecipeSummary()
+        return Spoonacular.service.getRecipeSummary(id, apiKey).toDomainRecipeSummary()
     }
 }

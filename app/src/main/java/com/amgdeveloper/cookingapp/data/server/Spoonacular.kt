@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Created by amgdeveloper on 18/11/2020
  */
-object RecipeClient {
+object Spoonacular {
 
     //private val client = OkHttpClient.Builder().addInterceptor(getHttpLoginInterceptor()).build()
 
@@ -18,7 +18,7 @@ object RecipeClient {
             //.client(client)
         .build()
 
-    var service: RecipeService = retrofit.create(RecipeService::class.java)
+    var service: SpoonacularService = retrofit.create(SpoonacularService::class.java)
 
     private fun getHttpLoginInterceptor() : HttpLoggingInterceptor{
         val interceptor = HttpLoggingInterceptor()
