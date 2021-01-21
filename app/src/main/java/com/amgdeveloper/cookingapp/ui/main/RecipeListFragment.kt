@@ -9,27 +9,21 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.amgdeveloper.cookingapp.data.AndroidPermissionChecker
-import com.amgdeveloper.cookingapp.BuildConfig
 import com.amgdeveloper.cookingapp.ui.common.PermissionRequester
 import com.amgdeveloper.cookingapp.common.app
 import com.amgdeveloper.cookingapp.common.getViewModel
 import com.amgdeveloper.cookingapp.common.startActivity
 import com.amgdeveloper.cookingapp.databinding.FragmentRecipeListBinding
-import com.amgdeveloper.cookingapp.data.PlayServicesLocationDataSource
-import com.amgdeveloper.cookingapp.data.database.RoomDataSource
-import com.amgdeveloper.cookingapp.data.server.SpoonacularDataSource
 import com.amgdeveloper.cookingapp.ui.detail.RecipeDetailsActivity
 import com.amgdeveloper.cookingapp.ui.main.ListViewModel.UiModel.*
-import com.amgdeveloper.data.repository.CuisineRepository
-import com.amgdeveloper.usecases.GetRecipesByRegion
 
 /**
  * Created by amgdeveloper on 18/11/2020
  */
 class RecipeListFragment : Fragment() {
 
-    private lateinit var viewModel : ListViewModel
+    private lateinit var component: RecipeListFragmentComponent
+    private val viewModel: ListViewModel by lazy { getViewModel { component.listViewModel } }
     private lateinit var adapter: RecipeListAdapter
     private lateinit var progressDialog: ProgressBar
     private lateinit var coarsePermissionRequester : PermissionRequester
@@ -48,11 +42,13 @@ class RecipeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentRecipeListBinding.inflate(layoutInflater, container, false)
+
+        component = requireContext().app.component.plus(RecipeListFragmentModule())
+
         val recyclerView = binding.recipeListFragmentRv
         progressDialog = binding.recipeListFragmentPb
 
 
-        viewModel = getViewModel { ListViewModel(createGetRecipesByRegionUseCase()) }
         adapter = RecipeListAdapter(emptyList(), viewModel::onRecipeClicked)
         recyclerView.adapter = adapter
         viewModel.model.observe(viewLifecycleOwner, Observer(this::updateUi))
@@ -78,24 +74,5 @@ class RecipeListFragment : Fragment() {
                 viewModel.onCoarsePermissionRequested()
             }
         }
-    }
-
-    private fun createGetRecipesByRegionUseCase(): GetRecipesByRegion {
-        val localDataSource = RoomDataSource(requireActivity().app.db)
-        val remoteDataSource = SpoonacularDataSource(BuildConfig.API_KEY)
-
-        val cuisineRepository = CuisineRepository(
-            PlayServicesLocationDataSource(
-                requireActivity().application
-            ),
-            AndroidPermissionChecker(requireActivity().application)
-        )
-        val recipeRepository: com.amgdeveloper.data.repository.RecipeRepository =
-            com.amgdeveloper.data.repository.RecipeRepository(
-                localDataSource,
-                remoteDataSource,
-                cuisineRepository
-            )
-        return GetRecipesByRegion(recipeRepository)
     }
 }

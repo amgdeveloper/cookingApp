@@ -1,8 +1,8 @@
 package com.amgdeveloper.cookingapp.common
 
 import android.app.Application
-import androidx.room.Room
-import com.amgdeveloper.cookingapp.data.database.RecipeDatabase
+import com.amgdeveloper.cookingapp.di.CookingComponent
+import com.amgdeveloper.cookingapp.di.DaggerCookingComponent
 
 /**
  * Created by amgdeveloper on 28/12/2020
@@ -10,11 +10,11 @@ import com.amgdeveloper.cookingapp.data.database.RecipeDatabase
 
 class RecipesApp : Application() {
 
-    lateinit var db : RecipeDatabase
-    private set
+    lateinit var component : CookingComponent
 
     override fun onCreate() {
         super.onCreate()
-        db = Room.databaseBuilder(this,RecipeDatabase::class.java,"recipe-db").build()
+
+        component = DaggerCookingComponent.factory().create(this)
     }
 }
