@@ -13,7 +13,7 @@ class CuisineRepository(
     private val permissionChecker: PermissionChecker) {
 
     companion object {
-        const val DEFAULT_CUISINE = "italian"
+        const val DEFAULT_CUISINE = "Italian"
         private const val DEFAULT_REGION = "IT"
     }
 
