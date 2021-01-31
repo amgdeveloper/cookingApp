@@ -2,9 +2,8 @@ package com.amgdeveloper.cookingapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.amgdeveloper.cookingapp.common.Event
-import com.amgdeveloper.cookingapp.common.Scope
+import com.amgdeveloper.cookingapp.common.ScopedViewModel
 import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.usecases.GetRecipesByRegion
 import kotlinx.coroutines.launch
@@ -12,11 +11,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by amgdeveloper on 13/12/2020
  */
-class ListViewModel(private val getRecipesByRegion: GetRecipesByRegion): ViewModel(), Scope by Scope.Impl() {
-
-    init {
-        initScope()
-    }
+class ListViewModel(private val getRecipesByRegion: GetRecipesByRegion): ScopedViewModel() {
 
     sealed class UiModel {
         object Loading : UiModel()
@@ -44,10 +39,6 @@ class ListViewModel(private val getRecipesByRegion: GetRecipesByRegion): ViewMod
             _model.value = UiModel.Loading
             _model.value = UiModel.Content(getRecipesByRegion.invoke())
         }
-    }
-
-    override fun onCleared() {
-        destroyScope()
     }
 
     fun onRecipeClicked(recipe: Recipe) {

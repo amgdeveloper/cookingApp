@@ -2,8 +2,7 @@ package com.amgdeveloper.cookingapp.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.amgdeveloper.cookingapp.common.Scope
+import com.amgdeveloper.cookingapp.common.ScopedViewModel
 import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.usecases.GetRecipeById
 import com.amgdeveloper.usecases.GetRecipeSummary
@@ -14,7 +13,7 @@ class DetailViewModel(
     private val getRecipeById: GetRecipeById,
     private val getRecipeSummary: GetRecipeSummary,
     private val toggleRecipeFavorite: ToggleRecipeFavorite,
-    private val recipeId: Int) : Scope by Scope.Impl(), ViewModel() {
+    private val recipeId: Int) : ScopedViewModel() {
 
     class UiModel(val title: String, val summary: String, var favorite: Boolean, val image: String)
 
@@ -26,15 +25,6 @@ class DetailViewModel(
             if (_model.value == null) getSummary(recipeId)
             return _model
         }
-
-    init {
-        initScope()
-    }
-
-    override fun onCleared() {
-        destroyScope()
-        super.onCleared()
-    }
 
     private fun getSummary(id: Int) {
         launch {
