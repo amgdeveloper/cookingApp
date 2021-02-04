@@ -4,7 +4,7 @@ import com.amgdeveloper.data.repository.CuisineRepository
 import com.amgdeveloper.data.repository.RecipeRepository
 import com.amgdeveloper.data.source.LocalDataSource
 import com.amgdeveloper.data.source.RemoteDataSource
-import com.amgdeveloper.domain.Recipe
+import com.cooking.amgdeveloper.testshared.mockedRecipe
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
@@ -83,12 +83,5 @@ class RecipeRepositoryTest {
         }
     }
 
-    private val mockedRecipe = Recipe(
-        0,
-        "https://spoonacular.com/recipeImages/631747-312x231.jpg",
-        "jpg",
-        "Dutch Oven Paella",
-        "Spanish",
-        false
-    )
+
 }

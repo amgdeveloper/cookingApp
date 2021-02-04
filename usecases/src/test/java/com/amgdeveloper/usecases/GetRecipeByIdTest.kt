@@ -1,9 +1,9 @@
 package com.amgdeveloper.usecases
 
 import com.amgdeveloper.data.repository.RecipeRepository
+import com.cooking.amgdeveloper.testshared.mockedRecipe
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
-import com.amgdeveloper.usecases.mockedRecipe
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

@@ -7,15 +7,17 @@ import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.usecases.GetRecipeById
 import com.amgdeveloper.usecases.GetRecipeSummary
 import com.amgdeveloper.usecases.ToggleRecipeFavorite
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
     private val getRecipeById: GetRecipeById,
     private val getRecipeSummary: GetRecipeSummary,
     private val toggleRecipeFavorite: ToggleRecipeFavorite,
-    private val recipeId: Int) : ScopedViewModel() {
+    override val uiDispatcher: CoroutineDispatcher,
+    private val recipeId: Int) : ScopedViewModel(uiDispatcher) {
 
-    class UiModel(val title: String, val summary: String, var favorite: Boolean, val image: String)
+    data class UiModel(val title: String, val summary: String, var favorite: Boolean, val image: String)
 
     private lateinit var recipe : Recipe
 

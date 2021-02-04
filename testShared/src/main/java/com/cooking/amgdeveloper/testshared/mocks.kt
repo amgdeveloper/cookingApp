@@ -1,10 +1,10 @@
-package com.amgdeveloper.usecases
+package com.cooking.amgdeveloper.testshared
 
 import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.domain.RecipeSummary
 
 
-internal  val mockedRecipe = Recipe(
+val mockedRecipe = Recipe(
     0,
     "https://spoonacular.com/recipeImages/631747-312x231.jpg",
     "jpg",
@@ -13,7 +13,7 @@ internal  val mockedRecipe = Recipe(
     false)
 
 
-internal val mockedRecipeSummary = RecipeSummary(
+val mockedRecipeSummary = RecipeSummary(
     0, 0, "This is the summary" +
             "of the recipe", "Dutch Oven Paella"
 )

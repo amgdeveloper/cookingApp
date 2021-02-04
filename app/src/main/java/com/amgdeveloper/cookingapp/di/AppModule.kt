@@ -15,6 +15,8 @@ import com.amgdeveloper.data.source.LocationDataSource
 import com.amgdeveloper.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -54,4 +56,7 @@ class AppModule {
         locationDataSource: LocationDataSource,
         permissionChecker: PermissionChecker): CuisineRepository =
         CuisineRepository(locationDataSource, permissionChecker)
+
+    @Provides
+    fun coroutineDispatcher():CoroutineDispatcher = Dispatchers.Main
 }

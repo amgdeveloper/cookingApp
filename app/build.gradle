@@ -59,6 +59,8 @@ dependencies {
 
     testImplementation testLibs.values()
 
+    testImplementation androidxTestLibs.values()
+
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"

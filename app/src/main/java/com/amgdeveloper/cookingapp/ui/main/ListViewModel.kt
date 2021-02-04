@@ -6,16 +6,18 @@ import com.amgdeveloper.cookingapp.common.Event
 import com.amgdeveloper.cookingapp.common.ScopedViewModel
 import com.amgdeveloper.domain.Recipe
 import com.amgdeveloper.usecases.GetRecipesByRegion
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 /**
  * Created by amgdeveloper on 13/12/2020
  */
-class ListViewModel(private val getRecipesByRegion: GetRecipesByRegion): ScopedViewModel() {
+class ListViewModel(private val getRecipesByRegion: GetRecipesByRegion,
+                    override val uiDispatcher: CoroutineDispatcher): ScopedViewModel(uiDispatcher) {
 
     sealed class UiModel {
         object Loading : UiModel()
-        class Content(val recipes: List<Recipe>) : UiModel()
+        data class Content(val recipes: List<Recipe>) : UiModel()
         object RequestLocationPermission : UiModel()
     }
 

@@ -7,6 +7,7 @@ import com.amgdeveloper.usecases.ToggleRecipeFavorite
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Created by amgdeveloper on 20/01/2021
@@ -31,8 +32,9 @@ class RecipeDetailFragmentModule(private val recipeId : Int){
     fun detailViewModelProvider(
         getRecipeById: GetRecipeById,
         getRecipeSummary: GetRecipeSummary,
-        toggleRecipeFavorite: ToggleRecipeFavorite
-    ): DetailViewModel = DetailViewModel(getRecipeById, getRecipeSummary, toggleRecipeFavorite, recipeId)
+        toggleRecipeFavorite: ToggleRecipeFavorite,
+        coroutineDispatcher : CoroutineDispatcher
+    ): DetailViewModel = DetailViewModel(getRecipeById, getRecipeSummary, toggleRecipeFavorite, coroutineDispatcher, recipeId)
 
 }
 
