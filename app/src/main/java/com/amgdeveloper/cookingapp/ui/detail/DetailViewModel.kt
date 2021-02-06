@@ -17,12 +17,16 @@ class DetailViewModel(
     override val uiDispatcher: CoroutineDispatcher,
     private val recipeId: Int) : ScopedViewModel(uiDispatcher) {
 
-    data class UiModel(val title: String, val summary: String, var favorite: Boolean, val image: String)
+    data class RecipeWithSummary(val title: String, val summary: String,
+                                 var favorite: Boolean, val image: String)
+
+    private fun Recipe.toRecipeWithSummary(summary : String): RecipeWithSummary =
+            RecipeWithSummary(title, summary, favorite,image)
 
     private lateinit var recipe : Recipe
 
-    private val _model = MutableLiveData<UiModel>()
-    val model: LiveData<UiModel>
+    private val _model = MutableLiveData<RecipeWithSummary>()
+    val model: LiveData<RecipeWithSummary>
         get() {
             if (_model.value == null) getSummary(recipeId)
             return _model
@@ -33,7 +37,7 @@ class DetailViewModel(
             recipe = getRecipeById.invoke(id)
             recipe.let {
                 _model.value = getRecipeSummary.invoke(id)?.let { it1 ->
-                    UiModel(
+                    RecipeWithSummary(
                         recipe.title,
                         it1.summary,
                         recipe.favorite,
@@ -47,8 +51,8 @@ class DetailViewModel(
     fun onFavoriteClicked() {
         launch {
             _model.value?.let {
-                _model.value = UiModel(it.title, it.summary, !it.favorite, it.image)
-                toggleRecipeFavorite.invoke(recipe.id, !it.favorite)
+                recipe = toggleRecipeFavorite.invoke(recipe)
+                _model.value = model.value?.let { it1 -> recipe.toRecipeWithSummary(it1.summary) }
             }
         }
     }

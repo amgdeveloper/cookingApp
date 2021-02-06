@@ -54,7 +54,7 @@ class RecipeDetailsFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateUi(model: DetailViewModel.UiModel) = with(binding) {
+    private fun updateUi(model: DetailViewModel.RecipeWithSummary) = with(binding) {
         toolbar.title = model.title
         headerIv.loadImage(model.image)
         summaryTv.text = model.summary

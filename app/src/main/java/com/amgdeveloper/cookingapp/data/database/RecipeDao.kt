@@ -21,9 +21,8 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecipeSummary(summary: RecipeSummary)
 
-    @Query("UPDATE Recipe SET favorite = CASE WHEN :favorite THEN 1 ELSE 0 END" +
-            " WHERE id == :id")
-    fun markAsFavorite(id:Int, favorite:Boolean):Int
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateRecipe(recipe : Recipe)
 
     @Query("SELECT * FROM Recipe WHERE id = :id")
     fun getRecipeById(id : Int) : Recipe

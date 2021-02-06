@@ -38,9 +38,9 @@ class RoomDataSource (db : RecipeDatabase): LocalDataSource {
         }
     }
 
-    override suspend fun markRecipeAsFavorite(id: Int, favorite: Boolean) {
+    override suspend fun update(recipe: Recipe) {
         withContext(Dispatchers.IO){
-            recipeDao.markAsFavorite(id,favorite)
+            recipeDao.updateRecipe(recipe.toDatabaseRecipe())
         }
     }
 

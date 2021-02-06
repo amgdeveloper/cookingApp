@@ -40,7 +40,7 @@ class RecipeRepository(
        }
     }
 
-    suspend fun markRecipeAsFavorite(id: Int, favorite: Boolean) {
-        return localDataSource.markRecipeAsFavorite(id, favorite)
+    suspend fun update(recipe : Recipe) {
+        return localDataSource.update(recipe)
     }
 }

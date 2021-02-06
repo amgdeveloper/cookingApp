@@ -12,6 +12,6 @@ interface LocalDataSource {
     suspend fun saveRecipes(recipes: List<Recipe>)
     suspend fun getRecipeSummary(id: Int): RecipeSummary?
     suspend fun saveRecipeSummary(summary: RecipeSummary)
-    suspend fun markRecipeAsFavorite(id: Int, favorite: Boolean)
+    suspend fun update(recipe : Recipe)
     suspend fun getRecipeById(id: Int): Recipe
 }
