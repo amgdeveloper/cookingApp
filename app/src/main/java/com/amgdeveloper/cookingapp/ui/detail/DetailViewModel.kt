@@ -17,11 +17,11 @@ class DetailViewModel(
     override val uiDispatcher: CoroutineDispatcher,
     private val recipeId: Int) : ScopedViewModel(uiDispatcher) {
 
-    data class RecipeWithSummary(val title: String, val summary: String,
+    data class RecipeWithSummary(val recipeId : Int, val title: String, val summary: String,
                                  var favorite: Boolean, val image: String)
 
     private fun Recipe.toRecipeWithSummary(summary : String): RecipeWithSummary =
-            RecipeWithSummary(title, summary, favorite,image)
+            RecipeWithSummary(id, title, summary, favorite,image)
 
     private lateinit var recipe : Recipe
 
@@ -38,10 +38,11 @@ class DetailViewModel(
             recipe.let {
                 _model.value = getRecipeSummary.invoke(id)?.let { it1 ->
                     RecipeWithSummary(
-                        recipe.title,
-                        it1.summary,
-                        recipe.favorite,
-                        recipe.image
+                            recipe.id,
+                            recipe.title,
+                            it1.summary,
+                            recipe.favorite,
+                            recipe.image
                     )
                 }
             }
