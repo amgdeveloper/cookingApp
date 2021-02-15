@@ -92,4 +92,10 @@ dependencies {
     //Dagger2
     implementation "com.google.dagger:dagger:$rootProject.dagger"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
+
+
+    //Dagger for testing
+    testImplementation "com.google.dagger:dagger:$rootProject.dagger"
+    kaptTest "com.google.dagger:dagger-compiler:$rootProject.dagger"
+
 }
