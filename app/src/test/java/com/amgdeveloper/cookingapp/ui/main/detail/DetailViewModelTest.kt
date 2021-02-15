@@ -55,13 +55,13 @@ class DetailViewModelTest {
 
             val recipe = mockedRecipe.copy(id = 5)
             val recipeSummary = mockedRecipeSummary.copy(recipeId = 5)
-            val uiModel = mockedRecipeWithSummary.copy(recipeId = 5)
+            val recipeWithSummary = mockedRecipeWithSummary.copy(recipeId = 5)
 
             whenever(getRecipeById.invoke(5)).thenReturn(recipe)
             whenever(getRecipeSummary.invoke(5)).thenReturn(recipeSummary)
             vm.model.observeForever(observer)
 
-            verify(observer).onChanged(uiModel)
+            verify(observer).onChanged(recipeWithSummary)
         }
     }
 
