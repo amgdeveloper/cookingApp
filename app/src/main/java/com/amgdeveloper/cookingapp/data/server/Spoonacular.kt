@@ -8,12 +8,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Created by amgdeveloper on 18/11/2020
  */
-object Spoonacular {
+class Spoonacular(baseUrl : String) {
 
     //private val client = OkHttpClient.Builder().addInterceptor(getHttpLoginInterceptor()).build()
 
     private val retrofit  = Retrofit.Builder()
-        .baseUrl("https://api.spoonacular.com/")
+        .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             //.client(client)
         .build()

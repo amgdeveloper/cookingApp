@@ -7,6 +7,7 @@ import com.amgdeveloper.cookingapp.data.AndroidPermissionChecker
 import com.amgdeveloper.cookingapp.data.PlayServicesLocationDataSource
 import com.amgdeveloper.cookingapp.data.database.RecipeDatabase
 import com.amgdeveloper.cookingapp.data.database.RoomDataSource
+import com.amgdeveloper.cookingapp.data.server.Spoonacular
 import com.amgdeveloper.cookingapp.data.server.SpoonacularDataSource
 import com.amgdeveloper.data.PermissionChecker
 import com.amgdeveloper.data.repository.CuisineRepository
@@ -33,6 +34,11 @@ class AppModule {
 
     @Provides
     @Singleton
+    @Named("baseUrl")
+    fun baseUrlProvider(): String = "https://api.spoonacular.com/"
+
+    @Provides
+    @Singleton
     fun databaseProvider(app: Application) =
         Room.databaseBuilder(app, RecipeDatabase::class.java, "recipe-db").build()
 
@@ -40,8 +46,11 @@ class AppModule {
     fun localDataSourceProvider(db: RecipeDatabase): LocalDataSource = RoomDataSource(db)
 
     @Provides
-    fun remoteDataSourceProvider(@Named ("apiKey")apiKey: String): RemoteDataSource =
-        SpoonacularDataSource(apiKey)
+    fun spoonacularProvider(@Named("baseUrl") baseUrl : String):Spoonacular = Spoonacular(baseUrl)
+
+    @Provides
+    fun remoteDataSourceProvider(spoonacular: Spoonacular, @Named ("apiKey")apiKey: String): RemoteDataSource =
+        SpoonacularDataSource(spoonacular, apiKey)
 
     @Provides
     fun locationDataSourceProvider(app: Application): LocationDataSource =
