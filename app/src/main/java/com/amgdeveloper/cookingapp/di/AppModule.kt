@@ -32,10 +32,6 @@ class AppModule {
     @Named("apiKey")
     fun apiKeyProvider():String = BuildConfig.API_KEY
 
-    @Provides
-    @Singleton
-    @Named("baseUrl")
-    fun baseUrlProvider(): String = "https://api.spoonacular.com/"
 
     @Provides
     @Singleton
@@ -45,8 +41,6 @@ class AppModule {
     @Provides
     fun localDataSourceProvider(db: RecipeDatabase): LocalDataSource = RoomDataSource(db)
 
-    @Provides
-    fun spoonacularProvider(@Named("baseUrl") baseUrl : String):Spoonacular = Spoonacular(baseUrl)
 
     @Provides
     fun remoteDataSourceProvider(spoonacular: Spoonacular, @Named ("apiKey")apiKey: String): RemoteDataSource =

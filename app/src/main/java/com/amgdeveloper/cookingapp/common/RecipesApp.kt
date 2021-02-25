@@ -8,13 +8,15 @@ import com.amgdeveloper.cookingapp.di.DaggerCookingComponent
  * Created by amgdeveloper on 28/12/2020
  */
 
-class RecipesApp : Application() {
+open class RecipesApp : Application() {
 
     lateinit var component : CookingComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        component = DaggerCookingComponent.factory().create(this)
+        component = initCookingComponent()
     }
+
+    open fun initCookingComponent() = DaggerCookingComponent.factory().create(this)
 }

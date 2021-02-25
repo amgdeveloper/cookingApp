@@ -13,7 +13,12 @@ import javax.inject.Singleton
  * Created by amgdeveloper on 19/01/2021
  */
 @Singleton
-@Component(modules = [AppModule::class, DataModule::class])
+@Component(
+    modules = [
+        AppModule::class,
+        DataModule::class,
+        ServerModule::class]
+)
 interface CookingComponent {
 
 
