@@ -3,11 +3,9 @@ package com.amgdeveloper.cookingapp.ui.main.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.amgdeveloper.cookingapp.ui.detail.DetailViewModel
-import com.amgdeveloper.usecases.GetRecipeById
-import com.amgdeveloper.usecases.GetRecipeSummary
+import com.amgdeveloper.usecases.GetRecipeByIdWithSummary
 import com.amgdeveloper.usecases.ToggleRecipeFavorite
 import com.cooking.amgdeveloper.testshared.mockedRecipe
-import com.cooking.amgdeveloper.testshared.mockedRecipeSummary
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
@@ -28,40 +26,34 @@ class DetailViewModelTest {
     @get : Rule
     val rule = InstantTaskExecutorRule()
 
-
     @Mock
-    lateinit var getRecipeById: GetRecipeById
-
-    @Mock
-    lateinit var  getRecipeSummary: GetRecipeSummary
+    lateinit var  getRecipeByIdWithSummary: GetRecipeByIdWithSummary
 
     @Mock
     lateinit var  toggleRecipeFavorite: ToggleRecipeFavorite
 
     @Mock
-    private lateinit var observer : Observer<DetailViewModel.RecipeWithSummary>
+    private lateinit var observer : Observer<DetailViewModel.UIModel>
 
     private lateinit var vm : DetailViewModel
 
     @Before
     fun setup() {
-        vm = DetailViewModel(getRecipeById, getRecipeSummary, toggleRecipeFavorite,
+        vm = DetailViewModel(getRecipeByIdWithSummary, toggleRecipeFavorite,
                 Dispatchers.Unconfined, 5)
     }
 
     @Test
-    fun observingGetsTheRecipe() {
+    fun observingGetsTheRecipeSummary() {
         runBlocking {
 
             val recipe = mockedRecipe.copy(id = 5)
-            val recipeSummary = mockedRecipeSummary.copy(recipeId = 5)
-            val recipeWithSummary = mockedRecipeWithSummary.copy(recipeId = 5)
+            val uiModel = DetailViewModel.UIModel(mockedRecipe.copy(id = 5))
 
-            whenever(getRecipeById.invoke(5)).thenReturn(recipe)
-            whenever(getRecipeSummary.invoke(5)).thenReturn(recipeSummary)
+            whenever(getRecipeByIdWithSummary.invoke(5)).thenReturn(recipe)
             vm.model.observeForever(observer)
 
-            verify(observer).onChanged(recipeWithSummary)
+            verify(observer).onChanged(uiModel)
         }
     }
 
@@ -69,21 +61,13 @@ class DetailViewModelTest {
     fun whenFavoriteClickedToggleMovieUseCaseIsInvoked(){
         runBlocking {
             val recipe = mockedRecipe.copy(id = 5)
-            val recipeSummary = mockedRecipeSummary.copy(recipeId = 5)
 
-            whenever(getRecipeById.invoke(5)).thenReturn(recipe)
-            whenever(getRecipeSummary.invoke(5)).thenReturn(recipeSummary)
+            whenever(getRecipeByIdWithSummary.invoke(5)).thenReturn(recipe)
             whenever(toggleRecipeFavorite.invoke(recipe)).thenReturn(recipe.copy(favorite = !recipe.favorite))
             vm.model.observeForever(observer)
             vm.onFavoriteClicked()
 
             verify(toggleRecipeFavorite).invoke(recipe)
-
         }
     }
-
-    private val mockedRecipeWithSummary = DetailViewModel.RecipeWithSummary(
-            1,  "Dutch Oven Paella","This is the summary" +
-            "of the recipe",  false,"https://spoonacular.com/recipeImages/631747-312x231.jpg"
-    )
 }

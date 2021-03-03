@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.amgdeveloper.cookingapp.ui.detail.DetailViewModel
 import com.amgdeveloper.cookingapp.ui.detail.RecipeDetailFragmentModule
 import com.amgdeveloper.cookingapp.ui.main.*
+import com.cooking.amgdeveloper.testshared.mockedRecipe
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking
@@ -27,7 +28,7 @@ class DetailIntegrationTest {
     private val component: TestComponent = DaggerTestComponent.factory().create()
     private lateinit var localDataSource: FakeLocalDataSource
     private lateinit var remoteDataSource: FakeRemoteDataSource
-    private val observer : Observer<DetailViewModel.RecipeWithSummary> = mock()
+    private val observer : Observer<DetailViewModel.UIModel> = mock()
     private lateinit var vm: DetailViewModel
 
     @Before
@@ -38,23 +39,23 @@ class DetailIntegrationTest {
     }
 
     @Test
-    fun `data is loaded from server when local source is empty`(){
+    fun `data summary is loaded from server when local source is empty`(){
         runBlocking {
             localDataSource.recipes = defaultFakeRecipes
-            vm.model.observeForever(observer)
+            val recipeWithSummary = DetailViewModel.UIModel(mockedRecipe.copy(id = 1))
 
-            val recipeWithSummary = mockedRecipeWithSummary
+            vm.model.observeForever(observer)
 
             verify(observer).onChanged(recipeWithSummary)
         }
     }
 
     @Test
-    fun `data is loaded from local source when available`(){
+    fun `data summary is loaded from local source when available`(){
         runBlocking {
             localDataSource.recipes = defaultFakeRecipes
             localDataSource.recipeSummary = defaultRecipeSummary
-            val recipeWithSummary = mockedRecipeWithSummary
+            val recipeWithSummary = DetailViewModel.UIModel(mockedRecipe.copy(id = 1))
 
             vm.model.observeForever(observer)
 
@@ -73,10 +74,4 @@ class DetailIntegrationTest {
             Assert.assertTrue(localDataSource.getRecipeById(1).favorite)
         }
     }
-
-    //TODO revise why can't this can't be exported to testModule so it can be reused along the tests
-    private val mockedRecipeWithSummary = DetailViewModel.RecipeWithSummary(
-        1,  "Dutch Oven Paella","This is the summary" +
-                "of the recipe",  false,"https://spoonacular.com/recipeImages/631747-312x231.jpg"
-    )
 }

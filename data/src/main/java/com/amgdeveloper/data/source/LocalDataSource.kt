@@ -10,7 +10,6 @@ interface LocalDataSource {
 
     suspend fun getRecipesByCuisine(cuisine: String): List<Recipe>
     suspend fun saveRecipes(recipes: List<Recipe>)
-    suspend fun getRecipeSummary(id: Int): RecipeSummary?
     suspend fun saveRecipeSummary(summary: RecipeSummary)
     suspend fun update(recipe : Recipe)
     suspend fun getRecipeById(id: Int): Recipe

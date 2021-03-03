@@ -10,7 +10,7 @@ val mockedRecipe = Recipe(
     "jpg",
     "Dutch Oven Paella",
     "Spanish",
-    false)
+    false,"This is the summary")
 
 
 val mockedRecipeSummary = RecipeSummary(

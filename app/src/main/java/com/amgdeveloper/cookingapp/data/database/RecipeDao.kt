@@ -26,4 +26,9 @@ interface RecipeDao {
 
     @Query("SELECT * FROM Recipe WHERE id = :id")
     fun getRecipeById(id : Int) : Recipe
+
+    @Transaction
+    @Query("SELECT * FROM Recipe WHERE id = :id")
+    fun getRecipeWithSummaryById(id: Int): RecipeWithSummary
+
 }

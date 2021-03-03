@@ -4,29 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.amgdeveloper.cookingapp.common.ScopedViewModel
 import com.amgdeveloper.domain.Recipe
-import com.amgdeveloper.usecases.GetRecipeById
-import com.amgdeveloper.usecases.GetRecipeSummary
+import com.amgdeveloper.usecases.GetRecipeByIdWithSummary
 import com.amgdeveloper.usecases.ToggleRecipeFavorite
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val getRecipeById: GetRecipeById,
-    private val getRecipeSummary: GetRecipeSummary,
-    private val toggleRecipeFavorite: ToggleRecipeFavorite,
-    override val uiDispatcher: CoroutineDispatcher,
-    private val recipeId: Int) : ScopedViewModel(uiDispatcher) {
+        private val getRecipeByIdWithSummary: GetRecipeByIdWithSummary,
+        private val toggleRecipeFavorite: ToggleRecipeFavorite,
+        override val uiDispatcher: CoroutineDispatcher,
+        private val recipeId: Int) : ScopedViewModel(uiDispatcher) {
 
-    data class RecipeWithSummary(val recipeId : Int, val title: String, val summary: String,
-                                 var favorite: Boolean, val image: String)
-
-    private fun Recipe.toRecipeWithSummary(summary : String): RecipeWithSummary =
-            RecipeWithSummary(id, title, summary, favorite,image)
-
+    data class UIModel(val recipe : Recipe)
     private lateinit var recipe : Recipe
 
-    private val _model = MutableLiveData<RecipeWithSummary>()
-    val model: LiveData<RecipeWithSummary>
+    private val _model = MutableLiveData<UIModel>()
+    val model: LiveData<UIModel>
         get() {
             if (_model.value == null) getSummary(recipeId)
             return _model
@@ -34,18 +27,8 @@ class DetailViewModel(
 
     private fun getSummary(id: Int) {
         launch {
-            recipe = getRecipeById.invoke(id)
-            recipe.let {
-                _model.value = getRecipeSummary.invoke(id)?.let { it1 ->
-                    RecipeWithSummary(
-                            recipe.id,
-                            recipe.title,
-                            it1.summary,
-                            recipe.favorite,
-                            recipe.image
-                    )
-                }
-            }
+            recipe = getRecipeByIdWithSummary.invoke(id)
+            _model.value = UIModel(recipe)
         }
     }
 
@@ -53,7 +36,7 @@ class DetailViewModel(
         launch {
             _model.value?.let {
                 recipe = toggleRecipeFavorite.invoke(recipe)
-                _model.value = model.value?.let { it1 -> recipe.toRecipeWithSummary(it1.summary) }
+                _model.value = UIModel(recipe)
             }
         }
     }

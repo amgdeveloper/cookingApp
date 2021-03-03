@@ -27,11 +27,6 @@ class RoomDataSource (db : RecipeDatabase): LocalDataSource {
         }
     }
 
-    override suspend fun getRecipeSummary(id: Int): RecipeSummary? =
-        withContext(Dispatchers.IO) {
-            recipeDao.getRecipeSummary(id)?.toDomainRecipeSummary()
-        }
-
     override suspend fun saveRecipeSummary(summary: RecipeSummary) {
         withContext(Dispatchers.IO){
             recipeDao.insertRecipeSummary(summary.toDatabaseRecipeSummary())
@@ -45,7 +40,7 @@ class RoomDataSource (db : RecipeDatabase): LocalDataSource {
     }
 
     override suspend fun getRecipeById(id: Int): Recipe =
-        withContext(Dispatchers.IO) {
-            recipeDao.getRecipeById(id).toDomainRecipe()
-        }
+            withContext(Dispatchers.IO) {
+                recipeDao.getRecipeWithSummaryById(id).toDomainRecipe()
+            }
 }

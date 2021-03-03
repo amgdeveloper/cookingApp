@@ -54,11 +54,12 @@ class RecipeDetailsFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateUi(model: DetailViewModel.RecipeWithSummary) = with(binding) {
-        toolbar.title = model.title
-        headerIv.loadImage(model.image)
-        summaryTv.text = model.summary
-        val icon = if (model.favorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
+    private fun updateUi(model: DetailViewModel.UIModel) = with(binding) {
+        val recipe = model.recipe
+        toolbar.title = recipe.title
+        headerIv.loadImage(recipe.image)
+        summaryTv.text = recipe.summary
+        val icon = if (recipe.favorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
         favoriteFab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, icon) })
     }
 }

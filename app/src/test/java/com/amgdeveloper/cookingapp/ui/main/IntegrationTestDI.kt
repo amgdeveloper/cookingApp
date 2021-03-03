@@ -76,10 +76,6 @@ class FakeLocalDataSource : LocalDataSource {
         this.recipes = recipes
     }
 
-    override suspend fun getRecipeSummary(id: Int): RecipeSummary? {
-        return recipeSummary
-    }
-
     override suspend fun saveRecipeSummary(summary: RecipeSummary) {
         recipeSummary = summary
     }
@@ -92,8 +88,8 @@ class FakeLocalDataSource : LocalDataSource {
 }
 
 class FakeRemoteDataSource : RemoteDataSource {
-    var recipes = defaultFakeRecipes
-    var recipeSummary = defaultRecipeSummary
+    private var recipes = defaultFakeRecipes
+    private var recipeSummary = defaultRecipeSummary
 
     override suspend fun getRecipesByCuisine(cuisine: String): List<Recipe> = recipes
 
@@ -103,7 +99,7 @@ class FakeRemoteDataSource : RemoteDataSource {
 }
 
 class FakeLocationDataSource : LocationDataSource {
-    var location = "IT"
+    private var location = "IT"
 
     override suspend fun findLastRegion(): String {
         return location

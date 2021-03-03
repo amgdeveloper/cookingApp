@@ -1,9 +1,8 @@
 package com.amgdeveloper.data.repository
 
-import com.amgdeveloper.domain.Recipe
-import com.amgdeveloper.domain.RecipeSummary
 import com.amgdeveloper.data.source.LocalDataSource
 import com.amgdeveloper.data.source.RemoteDataSource
+import com.amgdeveloper.domain.Recipe
 
 /**
  * Created by amgdeveloper on 09/01/2021
@@ -29,15 +28,15 @@ class RecipeRepository(
         return localDataSource.getRecipeById(id)
     }
 
-    suspend fun getRecipeSummary(id: Int): RecipeSummary? {
-        val localSummary = localDataSource.getRecipeSummary(id)
-       return if (localSummary == null) {
-           val summary = remoteDataSource.getRecipeSummary(id)
-           localDataSource.saveRecipeSummary(summary)
-           localDataSource.getRecipeSummary(id)
-       } else {
-           localSummary
-       }
+    suspend fun getRecipeWithSummary(id: Int): Recipe {
+        val recipe = localDataSource.getRecipeById(id)
+        return if (recipe.summary == null) {
+            val summary = remoteDataSource.getRecipeSummary(id)
+            localDataSource.saveRecipeSummary(summary)
+            localDataSource.getRecipeById(id)
+        } else {
+            recipe
+        }
     }
 
     suspend fun update(recipe : Recipe) {

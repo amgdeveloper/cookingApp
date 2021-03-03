@@ -2,7 +2,7 @@ package com.amgdeveloper.cookingapp.ui.detail
 
 import com.amgdeveloper.data.repository.RecipeRepository
 import com.amgdeveloper.usecases.GetRecipeById
-import com.amgdeveloper.usecases.GetRecipeSummary
+import com.amgdeveloper.usecases.GetRecipeByIdWithSummary
 import com.amgdeveloper.usecases.ToggleRecipeFavorite
 import dagger.Module
 import dagger.Provides
@@ -21,8 +21,8 @@ class RecipeDetailFragmentModule(private val recipeId : Int){
         GetRecipeById(recipeRepository)
 
     @Provides
-    fun getRecipeSummaryProvider(recipeRepository: RecipeRepository): GetRecipeSummary =
-        GetRecipeSummary(recipeRepository)
+    fun getRecipeSummaryProvider(recipeRepository: RecipeRepository): GetRecipeByIdWithSummary =
+        GetRecipeByIdWithSummary(recipeRepository)
 
     @Provides
     fun toggleRecipeFavoriteProvider(recipeRepository: RecipeRepository): ToggleRecipeFavorite =
@@ -30,11 +30,11 @@ class RecipeDetailFragmentModule(private val recipeId : Int){
 
     @Provides
     fun detailViewModelProvider(
-        getRecipeById: GetRecipeById,
-        getRecipeSummary: GetRecipeSummary,
-        toggleRecipeFavorite: ToggleRecipeFavorite,
-        coroutineDispatcher : CoroutineDispatcher
-    ): DetailViewModel = DetailViewModel(getRecipeById, getRecipeSummary, toggleRecipeFavorite, coroutineDispatcher, recipeId)
+            getRecipeByIdWithSummary: GetRecipeByIdWithSummary,
+            toggleRecipeFavorite: ToggleRecipeFavorite,
+            coroutineDispatcher: CoroutineDispatcher
+    ): DetailViewModel = DetailViewModel(getRecipeByIdWithSummary, toggleRecipeFavorite,
+            coroutineDispatcher, recipeId)
 
 }
 
